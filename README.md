@@ -1,18 +1,40 @@
 # Shobdo
 
-অডিও আপলোড করলেই OpenAI Whisper দিয়ে শব্দে শব্দে ট্রান্সক্রিপশন। প্রতিটা শব্দের শুরু ও শেষ সময় থাকে। শব্দে ক্লিক করলে অডিও সেই জায়গা থেকে বাজে।
+অডিও আপলোড করলেই Google **Gemini 3.5 Transcribe** দিয়ে ট্রান্সক্রিপশন। শব্দে ক্লিক করলে অডিও সেই জায়গা থেকে বাজে।
 
-## চালানো
+ব্রাউজার সরাসরি Gemini-তে অডিও পাঠায় — তাই **Vercel**-এ বড় ফাইলও কাজ করে (Vercel body-limit এড়ায়)।
+
+## চালানো (লোকাল)
 
 ```bash
 npm install
 npm run dev
 ```
 
-ব্রাউজারে খুলে OpenAI API key দিন (`sk-...`)। key শুধু এই ব্রাউজারের localStorage-এ থাকে। সার্ভারে সেভ হয় না — ট্রান্সক্রাইব চাপলে আপনার সার্ভার key-টা OpenAI-তে ফরওয়ার্ড করে।
+[http://localhost:3000](http://localhost:3000) এ [Google AI Studio](https://aistudio.google.com/apikey) key দিন (`AIza...`)। key শুধু localStorage-এ থাকে।
+
+## Vercel-এ ডিপ্লয়
+
+1. এই রিপো Vercel-এ Import করুন  
+2. Framework: Next.js (অটো)  
+3. Env ভ্যারিয়েবল লাগে না — ইউজার নিজের Gemini key UI-তে দেয়  
+4. Deploy
+
+অথবা CLI:
+
+```bash
+npx vercel
+```
+
+## মডেল
+
+| মডেল | ব্যবহার |
+|------|----------|
+| `gemini-3.5-transcribe` | ফাইল ট্রান্সক্রিপশন + word timestamps |
 
 ## সীমা
 
-- মডেল: `whisper-1` (word-level timestamp)
-- ফাইল সর্বোচ্চ ২৫ MB
 - ফরম্যাট: mp3, wav, m4a, mp4, mpeg, webm, ogg, flac
+- Word timestamps সহ ~২৫ মিনিট / চাঙ্ক; লম্বা ফাইল চাঙ্ক হয়
+- বাংলা: `bn-BD`
+- খরচ এস্টিমেট UI-তে দেখায় (≈১৩০৳/$)

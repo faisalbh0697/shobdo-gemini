@@ -3,7 +3,7 @@ import { Transcriber } from "@/components/transcriber";
 
 const title = "Shobdo — শব্দে শব্দে ট্রান্সক্রিপশন";
 const description =
-  "অডিও আপলোড করুন। OpenAI Whisper প্রতিটি শব্দ আলাদা করে দেয়, কখন বলা হয়েছে সেই সময়সহ।";
+  "অডিও আপলোড করুন। Gemini 3.5 Transcribe প্রতিটি শব্দ আলাদা করে দেয়, কখন বলা হয়েছে সেই সময়সহ।";
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
@@ -51,7 +51,7 @@ export default function HomePage() {
         <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-4 py-8 sm:px-6 sm:py-10">
           <header className="flex flex-col gap-2">
             <p className="text-xs font-medium tracking-[0.18em] text-stone-500 uppercase">
-              Whisper · word timestamps
+              Gemini 3.5 Transcribe · word timestamps
             </p>
             <h1 className="text-3xl font-semibold tracking-tight sm:text-4xl">Shobdo</h1>
             <p className="max-w-xl text-sm leading-6 text-stone-600 sm:text-base">

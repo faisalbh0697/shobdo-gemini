@@ -1,10 +1,11 @@
 {
   "name": "shobdo",
   "version": "0.1.0",
-  "description": "Upload audio and get a word-by-word transcript from OpenAI Whisper.",
+  "description": "Upload audio and get a word-by-word transcript via Gemini 3.5 Transcribe.",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "whisper": "cd whisper-server && .venv/bin/python server.py",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"

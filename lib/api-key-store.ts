@@ -1,4 +1,5 @@
-const STORAGE_KEY = "shobdo.openaiApiKey";
+const STORAGE_KEY = "shobdo.geminiApiKey";
+const LEGACY_KEYS = ["shobdo.openaiApiKey", "shobdo.sarvamApiKey"] as const;
 
 let current = "";
 const listeners = new Set<() => void>();
@@ -34,7 +35,16 @@ export function setApiKey(next: string) {
 
 export function loadApiKey() {
   if (typeof window === "undefined") return;
-  const saved = localStorage.getItem(STORAGE_KEY) ?? "";
+  let saved = localStorage.getItem(STORAGE_KEY) ?? "";
+  if (!saved) {
+    for (const key of LEGACY_KEYS) {
+      const legacy = localStorage.getItem(key);
+      if (legacy) {
+        saved = legacy;
+        break;
+      }
+    }
+  }
   if (saved === current) return;
   current = saved;
   emit();

@@ -21,7 +21,7 @@ const bengali = Noto_Sans_Bengali({
 export const metadata: Metadata = {
   title: "Shobdo — শব্দে শব্দে ট্রান্সক্রিপশন",
   description:
-    "অডিও আপলোড করুন। OpenAI Whisper প্রতিটি শব্দ আলাদা করে দেয়, কখন বলা হয়েছে সেই সময়সহ।",
+    "অডিও আপলোড করুন। Gemini 3.5 Transcribe প্রতিটি শব্দ আলাদা করে দেয়, কখন বলা হয়েছে সেই সময়সহ।",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
