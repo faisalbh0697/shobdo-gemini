@@ -128,3 +128,7 @@
     @apply font-sans;
   }
 }
+
+.secret-mask {
+  -webkit-text-security: disc;
+}

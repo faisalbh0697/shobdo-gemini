@@ -221,9 +221,10 @@ export function Transcriber() {
                 <div className="relative">
                   <Input
                     id="api-key"
-                    className="h-10 pr-10"
-                    type={showKey ? "text" : "password"}
+                    className={cn("h-10 pr-10", !showKey && apiKey.length > 0 && "secret-mask")}
+                    type="text"
                     autoComplete="off"
+                    autoCapitalize="off"
                     spellCheck={false}
                     placeholder="sk-..."
                     value={apiKey}
@@ -263,11 +264,12 @@ export function Transcriber() {
                   <span className="text-sm font-medium">
                     {file ? file.name : "অডিও ছাড়ুন, বা ক্লিক করে নিন"}
                   </span>
-                  <span className="text-xs text-muted-foreground">
-                    {file
-                      ? formatBytes(file.size)
-                      : "mp3, wav, m4a, mp4, webm, ogg, flac · সর্বোচ্চ ২৫ MB"}
+                  <span className="text-xs leading-5 text-muted-foreground">
+                    {file ? formatBytes(file.size) : "mp3, wav, m4a, mp4, webm, ogg, flac"}
                   </span>
+                  {file ? null : (
+                    <span className="text-xs text-muted-foreground">সর্বোচ্চ ২৫ MB</span>
+                  )}
                   <input
                     ref={fileInputRef}
                     id="audio-file"
