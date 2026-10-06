@@ -164,7 +164,7 @@ export async function transcribeChunkWithGemini(options: {
     }
 
     const parsed = parseGeminiTranscript(data);
-    const words = normalizeWords(parsed.words);
+    const words = normalizeWords(parsed.words, { preserveFillers: true });
     const text = parsed.text || wordsToText(words);
     const duration = words.length > 0 ? words.at(-1)!.end : undefined;
 

@@ -52,18 +52,30 @@ function collapseCharRuns(word: string): string {
   return word.replace(/([\p{L}\p{M}\p{N}])\1{2,}/gu, "$1$1");
 }
 
+const FILLER_RE =
+  /^(um+|uh+|umm+|uhh+|ah+|aah+|aa+|er+|erm+|hmm+|hm+|আ+া*|উম+|হুম+|অ+|এহ+)$/iu;
+
+function isFillerWord(word: string): boolean {
+  return FILLER_RE.test(word.replace(/[.,!?;:"'…]+$/g, "").trim());
+}
+
 export function normalizeWords(
   words: Array<{ word?: string; start?: number; end?: number }>,
+  options?: { preserveFillers?: boolean },
 ): TranscriptWord[] {
   const cleaned: TranscriptWord[] = [];
   for (const item of words) {
-    const word = collapseCharRuns((item.word ?? "").replace(/^\s+/, ""));
+    const raw = (item.word ?? "").replace(/^\s+/, "");
+    const word =
+      options?.preserveFillers && isFillerWord(raw) ? raw : collapseCharRuns(raw);
     if (!word) continue;
     const start = typeof item.start === "number" ? item.start : 0;
     const end = typeof item.end === "number" ? item.end : start;
     cleaned.push({ word, start, end: Math.max(end, start) });
   }
-  return collapseHallucinatedWords(cleaned);
+  return collapseHallucinatedWords(cleaned, {
+    maxWordRepeat: options?.preserveFillers ? 8 : 2,
+  });
 }
 
 /**
